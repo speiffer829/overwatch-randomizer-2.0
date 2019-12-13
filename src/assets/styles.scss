@@ -5,7 +5,15 @@
   src: url("~@/assets/bignoodletoo.woff");
 }
 
+$base: 'Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
+$fancy: 'Noodle','Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
+
+$orange: #FF8C00;
+$dark: #3A3F43;
+
 body{
-  font-family: "Noodle", sans-serif;
-  background: #444444;
+  font-family: 'Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
+  background: $orange;
+  margin: 0;
+  padding: 0;
 }

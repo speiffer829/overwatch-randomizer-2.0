@@ -1,12 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700");
-
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:700&display=swap');
 @font-face {
   font-family: "Noodle";
   src: url("~@/assets/bignoodletoo.woff");
 }
 
-$base: 'Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
-$fancy: 'Noodle','Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
+$base: 'Nunito Sans','Avenir', Helvetica, Arial, sans-serif;
+$fancy: 'Noodle','Nunito Sans','Avenir', Helvetica, Arial, sans-serif;
 
 $orange: #FF7800;
 // $orange: #FF8C00;
@@ -15,7 +14,7 @@ $dark: #3A3F43;
 $shadow: 0 2px 5px rgba(#000, 0.2);
 
 body{
-  font-family: 'Roboto Condensed','Avenir', Helvetica, Arial, sans-serif;
+  font-family: $base;
   background: $orange;
   margin: 0;
   padding: 0;

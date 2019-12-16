@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-iPhone_X_XS_11_Pro_5);
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #3a3f43;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 6px;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <clipPath id="clip-iPhone_X_XS_11_Pro_5">
+      <rect width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g id="iPhone_X_XS_11_Pro_5" data-name="iPhone X/XS/11 Pro – 5" class="cls-1">
+    <rect class="cls-3" width="50" height="50"/>
+    <path id="Path_2" data-name="Path 2" class="cls-2" d="M562.071,179.564l19.069-19.069,19.069,19.069" transform="translate(-556.571 -144.995)"/>
+  </g>
+</svg>

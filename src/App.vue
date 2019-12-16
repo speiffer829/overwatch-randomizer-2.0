@@ -20,7 +20,6 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #fff;
   width: 100%;
   max-width: 415px;
@@ -35,6 +34,12 @@ export default {
     box-shadow: 0 0px 10px rgba(darken($orange,20%), 1);
     min-height: calc(100vh - 40px);
   }
+}
+
+.wrap{
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 </style>

@@ -2,11 +2,11 @@
   <div class="home">
     <div class="hero-img-contain">
       <transition name="fade" mode="out-in">
-        <img :src="img" alt :key="hero.name" />
+        <img :src="img" alt :key="hero.name" rel="preload" />
       </transition>
 
       <div class="name-group">
-        <transition name="slide-left-delay" mode="out-in">
+        <transition name="slide-left" mode="out-in">
           <p class="hero-role" :key="hero.role">{{ hero.role }}</p>
         </transition>
         <transition name="slide-left" mode="out-in">
@@ -18,8 +18,7 @@
     <div class="control-group">
       <div class="choose-row">
         <button class="pick-btn" v-on:click="choose()">CHOOSE</button>
-        
-        
+
         <div class="filter-btn">
           <label>
             <input type="checkbox" name="filters" id="tank" value="tank" v-model="checks" />
@@ -40,22 +39,43 @@
             <span>Support</span>
           </label>
         </div>
-      
-      
       </div>
-
-      <div class="control-drawer">
-        
-      </div>
-
       <!-- .filters -->
+    </div>
+
+    <div class="info-box">
+      <div class="info-btn-group">
+        <button
+          class="btn"
+          :class="{'active' : infoStatus == 'Stats'}"
+          @click="infoStatus = 'Stats'"
+        >Stats</button>
+        <button
+          class="btn"
+          :class="{'active' : infoStatus == 'Recents'}"
+          @click="infoStatus = 'Recents'"
+        >Recents</button>
+      </div>
+
+      <div class="info-page">
+        <transition name="fade-up" mode="out-in">
+          <component :is="infoStatus" :hero="hero" :recents="recents"></component>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Stats from "@/components/Stats.vue";
+import Recents from "@/components/Recents.vue";
+
 export default {
   name: "home",
+  components: {
+    Stats,
+    Recents
+  },
   data() {
     return {
       heros: [],
@@ -66,11 +86,28 @@ export default {
       loaded: false,
       img: "/logo.svg",
       loopSentinal: 0,
-      filterDrawer: false
+      filterDrawer: false,
+      infoStatus: "Stats"
     };
   },
-  mounted() {
-    this.heros = this.$store.state.heros;
+  async mounted() {
+    this.heros = await this.$store.state.heros;
+    if (localStorage.getItem("recents")) {
+      this.recents = JSON.parse(localStorage.getItem("recents"));
+    }
+
+    var tempImg = [];
+
+    for (var x = 0; x < this.heros.length; x++) {
+      tempImg[x] = new Image();
+      let imgName;
+      if (this.heros[x].img) {
+        imgName = this.heros[x].img;
+      } else {
+        imgName = this.heros[x].name.toLowerCase();
+      }
+      tempImg[x].src = `/hero-imgs/${imgName}.png`;
+    }
   },
   methods: {
     choose() {
@@ -82,15 +119,20 @@ export default {
         this.recents.includes(theHero.name) === false
       ) {
         this.hero = theHero;
-        this.img = `/hero-imgs/${this.hero.name.toLowerCase()}.png`;
+        if (this.hero.img) {
+          this.img = `/hero-imgs/${this.hero.img.toLowerCase()}.png`;
+        } else {
+          this.img = `/hero-imgs/${this.hero.name.toLowerCase()}.png`;
+        }
         this.recents.unshift(this.hero.name);
         this.loopSentinal = 0;
-        if(this.recents.length >= 11){
+        if (this.recents.length >= 10) {
           this.recents.pop();
         }
+        localStorage.setItem("recents", JSON.stringify(this.recents));
       } else {
         this.loopSentinal++;
-        if (this.loopSentinal < 11) {
+        if (this.loopSentinal < 10) {
           this.choose();
         } else {
           this.recents = [];
@@ -109,6 +151,7 @@ export default {
   position: relative;
   margin-bottom: 20px;
   background: $orange;
+  padding-top: 30px;
 
   img {
     max-width: 90%;
@@ -123,7 +166,7 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, $dark 10%, rgba($orange, 0) 98%);
+    background: linear-gradient(to top, $dark 10%, rgba($dark, 0) 75%);
     position: absolute;
     top: 0;
     left: 0;
@@ -137,6 +180,7 @@ export default {
     z-index: 50;
     padding: 0 20px;
     font-family: $fancy;
+    width: 90%;
 
     .hero-name {
       font-size: 4.7em;
@@ -153,12 +197,10 @@ export default {
   }
 }
 
-
-
 .choose-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  max-width: 350px;
+  max-width: 400px;
   width: 90%;
   margin: 10px auto;
   grid-gap: 5px;
@@ -168,13 +210,12 @@ export default {
   margin: 0px 0 30px;
   position: relative;
   width: 100%;
-  
   justify-content: center;
-  max-width: 330px;
+  max-width: 350px;
 }
 
 .filter-form {
-  width: 95%;
+  width: 90%;
   // border: solid 2px $orange;
   border-radius: 0px;
   overflow: hidden;
@@ -191,13 +232,18 @@ export default {
   display: block;
   box-shadow: $shadow;
   overflow: hidden;
-  
-  &:first-of-type{
-    border-radius: 0 0 0 20px;
+  transition: all 0.2s;
+  border-radius: 3px;
+  &:active {
+    transform: scale(0.9);
   }
 
-  &:last-of-type{
-    border-radius: 0 0 20px 0;
+  &:first-of-type {
+    border-radius: 3px 3px 3px 20px;
+  }
+
+  &:last-of-type {
+    border-radius: 3px 3px 20px 3px;
   }
 }
 
@@ -216,7 +262,7 @@ export default {
   text-transform: uppercase;
   color: #fff;
   transition: all 0.25s;
-  background: rgba(#fff,0.1);
+  background: rgba(#fff, 0.1);
 }
 
 .filter-btn label input {
@@ -231,9 +277,6 @@ export default {
   color: $dark;
 }
 
-
-
-
 .pick-btn {
   grid-column: span 3;
   padding: 15px;
@@ -244,13 +287,60 @@ export default {
   border: none;
   outline: none;
   box-shadow: $shadow;
-  border-radius: 20px 20px 0 0;
-  // border-bottom: solid darken($orange, 10%) 2px;
+  border-radius: 20px 20px 3px 3px;
   cursor: pointer;
   transition: all 0.2s;
 
   &:active {
     transform: scale(0.9);
+  }
+}
+
+.info-page {
+  width: 95%;
+}
+
+.info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+
+  .info-btn-group {
+    display: grid;
+    margin: 30px auto 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+  }
+
+  button {
+    background: $opac;
+    border: none;
+    padding: 10px 20px;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: $base;
+    text-transform: uppercase;
+    box-shadow: $shadow;
+    transition: all 0.2s;
+
+    &:first-of-type {
+      border-radius: 10px 3px 3px 10px;
+    }
+
+    &:last-of-type {
+      border-radius: 3px 10px 10px 3px;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &.active {
+      color: $dark;
+      background: $orange;
+    }
   }
 }
 
@@ -274,20 +364,25 @@ export default {
 .slide-left-leave-active {
   transition: all 350ms;
 }
-.slide-left-delay-enter-active,
-.slide-left-delay-leave-active {
+
+.slide-left-enter {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.slide-left-leave-to {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+.fade-up-enter-active,
+.fade-up-leave-active {
   transition: all 350ms;
 }
 
-.slide-left-enter,
-.slide-left-delay-enter {
-  transform: translateX(-300px);
+.fade-up-enter,
+.fade-up-leave-to {
   opacity: 0;
-}
-
-.slide-left-leave-to,
-.slide-left-delay-leave-to {
-  transform: translateX(-300px);
-  opacity: 0;
+  transform: translateY(40px);
 }
 </style>

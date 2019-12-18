@@ -26,6 +26,7 @@ export default {
   margin: 0 auto;
   background: $dark;
   min-height: 100vh;
+  padding-bottom: 30px;
 
   @media screen and (min-width: 416px) {
     border-radius: 10px;
@@ -34,6 +35,10 @@ export default {
     box-shadow: 0 0px 10px rgba(darken($orange,20%), 1);
     min-height: calc(100vh - 40px);
   }
+}
+
+button{
+  cursor: pointer;
 }
 
 .wrap{

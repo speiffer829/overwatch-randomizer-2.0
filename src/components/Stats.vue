@@ -1,16 +1,15 @@
 <template>
   <div class="all-stats">
     <transition name="move-out" mode="out-in">
-
-    <div :key="hero.name">
-      <div class="stat-group" v-for="weapon of hero.weapons" :key="weapon.name">
-        <h2>{{ weapon.weaponName }}</h2>
-        <div class="stat-row" v-for="stat of weapon.weaponStats" :key="stat.title">
-          <p class="left">{{ stat.title }}</p>
-          <p class="right">{{ stat.value }}</p>
+      <div :key="hero.name">
+        <div class="stat-group" v-for="weapon of hero.weapons" :key="weapon.name">
+          <h2>{{ weapon.weaponName }}</h2>
+          <div class="stat-row" v-for="stat of weapon.weaponStats" :key="stat.title">
+            <p class="left">{{ stat.title }}</p>
+            <p class="right">{{ stat.value }}</p>
+          </div>
         </div>
       </div>
-    </div>
     </transition>
   </div>
 </template>
@@ -58,31 +57,29 @@ h2 {
   box-shadow: $shadow;
   border-radius: 3px;
 
-  p{
+  p {
     padding: 0 10px;
     color: $orange;
   }
 
-  .right{
+  .right {
     text-align: right;
     color: #ffffff;
   }
 }
 
-
-
 //animations
 
 .move-out-enter-active,
-.move-out-leave-active{
+.move-out-leave-active {
   transition: all 350ms;
 }
 
-.move-out-enter{
+.move-out-enter {
   opacity: 0;
   transform: translateX(-50px);
 }
-.move-out-leave-to{
+.move-out-leave-to {
   opacity: 0;
   transform: translateX(50px);
 }

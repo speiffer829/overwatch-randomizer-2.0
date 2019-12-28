@@ -97,16 +97,17 @@ export default {
     }
 
     var tempImg = [];
-
+    let imgName;
     for (var x = 0; x < this.heros.length; x++) {
       tempImg[x] = new Image();
-      let imgName;
+      
       if (this.heros[x].img) {
         imgName = this.heros[x].img;
       } else {
         imgName = this.heros[x].name.toLowerCase();
       }
-      tempImg[x].src = `/hero-imgs/${imgName}.png`;
+      tempImg[x].src = `/hero-imgs/ashe.png`;
+      console.log(imgName)
     }
   },
   methods: {

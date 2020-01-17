@@ -4,7 +4,6 @@
       <transition name="fade" mode="out-in">
         <img :src="img" alt :key="hero.name" rel="preload" />
       </transition>
-
       <div class="name-group">
         <transition name="slide-left" mode="out-in">
           <p class="hero-role" :key="hero.role">{{ hero.role }}</p>
@@ -91,24 +90,30 @@ export default {
     };
   },
   async mounted() {
+    console.log( 'titties' );
     this.heros = await this.$store.state.heros;
+    let heroes = await this.$store.state.heros;
+    console.log( heroes );
+    
     if (localStorage.getItem("recents")) {
       this.recents = JSON.parse(localStorage.getItem("recents"));
     }
 
     var tempImg = [];
     let imgName;
-    for (var x = 0; x < this.heros.length; x++) {
+    for (var x = 0; x < heroes.length; x++) {
       tempImg[x] = new Image();
       
-      if (this.heros[x].img) {
-        imgName = this.heros[x].img;
+      if (heroes[x].img) {
+        imgName = heroes[x].img;
       } else {
-        imgName = this.heros[x].name.toLowerCase();
+        imgName = heroes[x].name.toLowerCase();
       }
-      tempImg[x].src = `/hero-imgs/ashe.png`;
-      console.log(imgName)
+      tempImg[x].src = `/hero-imgs/${imgName}.png`;
+      console.log(tempImg[x]);
     }
+
+    
   },
   methods: {
     choose() {

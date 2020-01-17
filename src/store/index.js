@@ -7,8 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    foo: "bar",
-    heros: [],
+    heros:[]
   },
 
   mutations: vuexfireMutations,

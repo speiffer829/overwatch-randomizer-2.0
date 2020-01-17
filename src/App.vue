@@ -4,15 +4,25 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <router-view/>
+    <div v-if="loaded">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  created(){
-    this.$store.dispatch('bindHeros');
-  }
+  async created(){
+    let dispatchinshit = await this.$store.dispatch('bindHeros');
+      if(dispatchinshit){
+        this.loaded = true;
+      }
+  },
+  data() {
+    return {
+      loaded: false
+    }
+  },
 }
 </script>
 

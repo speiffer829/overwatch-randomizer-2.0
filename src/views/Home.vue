@@ -90,10 +90,8 @@ export default {
     };
   },
   async mounted() {
-    console.log( 'titties' );
     this.heros = await this.$store.state.heros;
     let heroes = await this.$store.state.heros;
-    console.log( heroes );
     
     if (localStorage.getItem("recents")) {
       this.recents = JSON.parse(localStorage.getItem("recents"));
@@ -110,7 +108,6 @@ export default {
         imgName = heroes[x].name.toLowerCase();
       }
       tempImg[x].src = `/hero-imgs/${imgName}.png`;
-      console.log(tempImg[x]);
     }
 
     

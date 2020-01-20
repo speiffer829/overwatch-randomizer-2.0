@@ -1,0 +1,15 @@
+{
+  "name": "Pooverwatch",
+  "short_name": "Pooverwatch",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#FF7800",
+  "background_color": "#FF7800",
+  "icons": [
+    {
+      "src": "/pwa-logo.png", 
+      "sizes": "144px", 
+      "type": "image/png" 
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import router from './router'
 // import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { store } from './store';
+import './registerServiceWorker'
 
 
 

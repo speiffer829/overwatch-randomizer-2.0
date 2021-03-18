@@ -1,24 +1,2 @@
 # overwatch2
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This is an randomizer that picks an Overwatch Hero. Built using the Vue CLI.  It was my first go around with the Vue CLI and I quite like it. 
